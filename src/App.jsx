@@ -1,28 +1,39 @@
 import './App.css'
 import ProductCard from './components/productCard'
+import { MdOutlineBluetoothAudio } from "react-icons/md";
+import { BsGraphDown } from "react-icons/bs";
+import { FaRegBookmark } from "react-icons/fa";
+
+
 
 function App() {
  
 
   return (
-    <div >
-      <div className='w-[800px] h-[800px] bg-yellow-200 '>
-      <div className='w-[500px] h-[500px] bg-blue-200 flex flex-col justify-around items-center '>
-        <div className='w-[50px] h-[50px] bg-red-500'>
-         
-
-        </div>
-        <div className='w-[50px] h-[50px] bg-green-500 '>
-
-        </div>
-        <div className='w-[50px] h-[50px] bg-yellow-500 '>
-
-        </div>
-        </div>
+    <div className='w-full h-screen flex ' >
+      <div className='w-[300px] h-full bg-green-200'>
+        <button className='w-full h-[40px] text-[25px] font-bold bg-red-400 flex justify-center items-center' >
+          <BsGraphDown />
+          Dashboard
+        </button>
+        <button className='w-full h-[40px] text-[25px] font-bold flex justify-center items-center'>
+          <FaRegBookmark />
+          Booking
+        </button>
+        <button className='w-full h-[40px] text-[25px] font-bold'>
+          Items
+        </button>
+        <button className='w-full h-[40px] text-[25px] font-bold'>
+          Users
+        </button>
 
 
       </div>
-      
+      <div className='w-full  bg-red-900'>
+     
+
+       </div>
+
     </div>
   )
 }
