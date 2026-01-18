@@ -6,7 +6,7 @@ export default  function ProductCard(props){
             <img src={props.img}/>
             <span>{props.name}</span>
             <span>LKR. {props.price}</span>
-            <h1>Product Card</h1>
+            <p>{props.description}</p>
         </div>
     )
 
