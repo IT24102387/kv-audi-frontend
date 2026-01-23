@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function ErrorNotFound() {
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-orange-500">
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-orange-500 to-pink-500">
       <div className="bg-white p-10 rounded-2xl shadow-2xl text-center max-w-md">
         
         <h1 className="text-7xl font-extrabold text-orange-500">404</h1>
