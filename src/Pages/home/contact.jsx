@@ -33,7 +33,7 @@ export default function Contact() {
 
           {/* Header */}
           <div className="text-center">
-            <h2 className="text-4xl font-bold text-green-600 mb-2">
+            <h2 className="text-4xl font-bold text-blue-500 mb-2">
               Get in Touch
             </h2>
             <p className="text-gray-600">
@@ -97,7 +97,7 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
+                className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition"
               >
                 Send Message
               </button>
