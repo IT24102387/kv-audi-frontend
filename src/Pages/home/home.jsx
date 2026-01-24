@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000); // Change image every 5 seconds
+    },6000); // Change image every 6 seconds
 
     return () => clearInterval(interval);
   }, []);
