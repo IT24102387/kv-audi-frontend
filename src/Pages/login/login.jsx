@@ -1,85 +1,124 @@
 import axios from "axios";
-import "./login.css";
-import { useState } from "react"
+import "./login.css";           // ← keep your css, we'll tweak it below
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export default function LogiPage(){
-    const[email,setEmail]=useState("");
-    const[password,setPassword]=useState("");
-    const navigate=useNavigate()
+export default function LoginPage() {   // fixed typo: LogiPage → LoginPage
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    function handleOnSubmit(e){
-        e.preventDefault()
-        console.log(email,password)
-
-        axios.post("http://localhost:3000/api/users/login",
-            {
-                email:email,
-                password:password
-
-            }).then((res)=>{
-                console.log(res)
-                toast.success("Login Success")
-                const user=res.data.user
-                localStorage.setItem("token",res.data.token)
-
-                if(user.role ==="admin"){
-                    navigate("/admin/")
-                }else{
-                    navigate("/")
-                }
-
-
-            }).catch((err)=>{
-                console.log(err)
-                toast.error(err.response.data.error)
-            })
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    // Optional: basic client-side check
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
     }
 
-    return(
-    <div className="bg-picture w-full h-screen flex justify-center items-center">
-        <form onSubmit={handleOnSubmit}>
-        <div className="w-[400px] h-[400px] backdrop-blur-xl rounded-2xl flex justify-center items-center flex-col relative">
-            <img src="download.png" alt="logo" className="w-[150px] h-[150px] object-cover"/>
+    axios
+      .post("http://localhost:3000/api/users/login", { email, password })
+      .then((res) => {
+        toast.success("Login Successful");
+        const { user, token } = res.data;
+        localStorage.setItem("token", token);
 
-            {/*Email*/}
-            <input type="email"
+        // Redirect based on role
+        if (user.role === "admin") {
+          navigate("/admin/");           // or "/admin/dashboard" if you have sub-route
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response?.data?.error || "Login failed. Try again.");
+      });
+  };
+
+  return (
+    <div className="bg-picture w-full min-h-screen flex items-center justify-center px-4">
+      <form
+        onSubmit={handleOnSubmit}
+        className="w-full max-w-md"   // better responsive width
+      >
+        <div
+          className="
+            backdrop-blur-xl bg-white/10 
+            border border-white/20 
+            rounded-3xl 
+            p-8 md:p-10 
+            flex flex-col items-center 
+            shadow-2xl
+          "
+        >
+          {/* Logo */}
+          <img
+            src="download.png"          // consider adding fallback or better path
+            alt="Company Logo"
+            className="w-32 h-32 md:w-40 md:h-40 object-contain mb-6"
+          />
+
+          <h2 className="text-3xl font-bold text-white mb-8">Admin Login</h2>
+
+          {/* Email */}
+          <input
+            type="email"
             placeholder="Email"
-            className="w-[300px] h-[30px] mt-6 bg-transparent 
-            border-b-2 border-white
-            text-white
-            text-xl outline-none"
+            className="
+              w-full max-w-xs 
+              bg-transparent 
+              border-b-2 border-white/70 
+              text-white placeholder-white/60 
+              text-lg py-3 px-2 
+              outline-none focus:border-white
+              transition-all
+            "
             value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            required
+          />
 
-            onChange={(e)=>{
-                setEmail(e.target.value)
-
-            }
-        }
-        />
-
-            {/*Password*/}
-            <input type="password"
+          {/* Password */}
+          <input
+            type="password"
             placeholder="Password"
-            className="w-[300px] h-[30px] mt-6 bg-transparent 
-            border-b-2 border-white
-            text-white
-            text-xl outline-none"
+            className="
+              w-full max-w-xs 
+              bg-transparent 
+              border-b-2 border-white/70 
+              text-white placeholder-white/60 
+              text-lg py-3 px-2 mt-6
+              outline-none focus:border-white
+              transition-all
+            "
             value={password}
-            
-            onChange={(e)=>{
-                setPassword(e.target.value)
-            }
-        }
-            />
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-            <button className="my-8 w-[300px] h-[50px] bg-[#570602] text-2xl text-white rounded-2xl">Login</button>
-           
+          {/* Submit */}
+          <button
+            type="submit"
+            className="
+              mt-10 w-full max-w-xs 
+              bg-[#210493] hover:bg-[#14047a] 
+              text-white text-xl font-semibold 
+              py-4 rounded-2xl 
+              transition-all duration-300 
+              shadow-lg
+            "
+          >
+            Login
+          </button>
 
+          {/* Optional: small help text */}
+          <p className="text-white/60 text-sm mt-6">
+            Contact support if you forgot your password
+          </p>
         </div>
-        </form>
+      </form>
     </div>
-    )
-
+  );
 }
