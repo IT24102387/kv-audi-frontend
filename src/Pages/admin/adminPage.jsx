@@ -8,6 +8,7 @@ import { MdOutlineSpeaker, MdAddCircleOutline } from "react-icons/md";
 import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import AdminItemPage from "./adminItems";
 import AddItemPage from "./addItemPage";
+import UpdateItemPage from "./updateItemPage";
 
 const navItems = [
   { path: "/admin", label: "Dashboard", icon: BsGraphUp, exact: true },
@@ -97,6 +98,7 @@ export default function AdminPage() {
             <Route path="/bookings" element={<BookingsPlaceholder />} />
             <Route path="/items" element={<AdminItemPage />} />
             <Route path="/items/add" element={<AddItemPage />} />
+            <Route path="/items/edit" element={<UpdateItemPage/>}/>
             <Route path="/users" element={<UsersPlaceholder />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
