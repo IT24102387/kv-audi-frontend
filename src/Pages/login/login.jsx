@@ -16,9 +16,10 @@ export default function LoginPage() {   // fixed typo: LogiPage → LoginPage
       toast.error("Please fill in all fields");
       return;
     }
+    const backendUrl=import.meta.env.VITE_BACKEND_URL
 
     axios
-      .post("http://localhost:3000/api/users/login", { email, password })
+      .post(`${backendUrl}/api/users/login`, { email, password })
       .then((res) => {
         toast.success("Login Successful");
         const { user, token } = res.data;
