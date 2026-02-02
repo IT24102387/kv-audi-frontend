@@ -2,6 +2,7 @@ import axios from "axios";
 import "./register.css";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
@@ -10,45 +11,27 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const navigate=useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !address ||
-      !phone
-    ) {
-      toast.error("Please fill in all fields");
-      return;
-    }
 
     // frontend only (no backend)
-    console.log({
-      firstName,
-      lastName,
-      email,
-      password,
-      address,
-      phone,
-    });
-
-    toast.success("Registration form submitted");
+    console.log({firstName,lastName,email,password,address,phone});
     axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/`,{
         email:email,
-        firstName: firstName,
-        lastName : lastName,
+        firstName:firstName,
+        lastName :lastName,
         password :password,
         address :address,
-        phone :phone
+        phone:phone
 
+    }).then(()=>{
+        
+        toast.success("Registration Success")
+        navigate("/login")
 
-
-    }).then((res)=>{
-        console.log(res)
     }).catch((err)=>{
         toast.error(err?.response?.data?.error|| "An error occured")
     })
@@ -56,7 +39,7 @@ export default function RegisterPage() {
 
   return (
     <div className="bg-picture w-full min-h-screen flex items-center justify-center px-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-md">
+      <form onSubmit={handleOnSubmit} className="w-full max-w-md">
         <div
           className="
             backdrop-blur-xl bg-white/10 
